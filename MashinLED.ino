@@ -2,10 +2,21 @@
 #include <IRremote.h>
 #include <SoftwareSerial.h>
 #include <ArduinoBlue.h>
+
+
+
+const int BLUETOOTH_TX = 7;
+const int BLUETOOTH_RX = 8;
+IRrecv irrecv(2); // указываем пин, к которому подключен IR приемник
+#define NUM_LEDS 100 // количество диодов
+#define LED_PIN 6 // pin для ленты
+#define BRIGHTNESS 255 // яркость ленты (0-255)
+#define SOUND_SENSOR_PIN A0 // аналоговый датчик звука
+#define SOUND_SENSOR_LEVEL 10 // уровень звука
+
 CRGBPalette16 palette = PartyColors_p;
 
 const unsigned long BAUD_RATE = 9600;
-IRrecv irrecv(2); // указываем пин, к которому подключен IR приемник
 decode_results results;
 
 // The bluetooth tx and rx pins must be supported by software serial.
@@ -13,8 +24,6 @@ decode_results results;
 // Bluetooth TX -> Arduino D8
 
 
-const int BLUETOOTH_TX = 7;
-const int BLUETOOTH_RX = 8;
 
 
 // Bluetooth RX -> Arduino D7
@@ -50,11 +59,6 @@ int MODE = 1;//////////////////
 //9 - April //////////
 //10 - Octave ///////
 
-#define NUM_LEDS 100
-#define LED_PIN 6
-#define BRIGHTNESS 255
-#define SOUND_SENSOR_PIN A0 
-#define SOUND_SENSOR_LEVEL 10
 
 // Define color structure for rgb
 struct color {int r;int g;int b;};
