@@ -9,6 +9,8 @@ void center(){
 
     // now, let's first 20 leds to the top 20 leds, 
     leds(NUM_LEDS/2,NUM_LEDS-1) = leds(NUM_LEDS/2 - 1 ,0);
-    FastLED.delay(33);
+     if (irrecv.isIdle()) {
+      FastLED.delay(33);
+    };
   }  
 }

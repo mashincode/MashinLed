@@ -94,6 +94,8 @@ void pacifica()
 {
   EVERY_N_MILLISECONDS( 20) {
     pacifica_loop();
-    FastLED.show();
+    if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
   }
 }

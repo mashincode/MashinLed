@@ -23,8 +23,10 @@ void palletteFire()
 
   Fire2012WithPalette(); // run simulation frame, using palette colors
   
-  FastLED.show(); // display this frame
-  FastLED.delay(1000 / FRAMES_PER_SECOND);
+  if (irrecv.isIdle()) {
+      FastLED.show(); 
+      FastLED.delay(1000 / FRAMES_PER_SECOND);
+    }
 }
 
 

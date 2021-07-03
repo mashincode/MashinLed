@@ -6,11 +6,13 @@ void resetLedState() { //function to turn off all the LEDs
   for (int turnMeOff = 0; turnMeOff < 61; turnMeOff++) {
     leds[turnMeOff] = CRGB(0, 0, 0);
   }
-  FastLED.show();
+   if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
 }
 
 void audioRead() { //function to read the audio  
-  int rawValue = analogRead(SOUND_SENSOR_PIN) * 2; //double the audio level
+  int rawValue = analogRead(SOUND_SENSOR_PIN) * (SOUND_SENSOR_LEVEL-2);
   volumeLevel = map(rawValue, 0, 1023, 0, 900); //map it to 900 values
   if (volumeLevel > 900) { //if it's higher than 900 it lowers it back to 900
     volumeLevel = 900;
@@ -106,7 +108,9 @@ void octave() {
     displayFilter(volumeLevel, i); //set the right colour magic
   }
 
-  FastLED.show(); //updates the LED strip
+   if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
 
-  delay(20); //delay
+  //delay(20); //delay
 }

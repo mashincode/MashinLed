@@ -45,13 +45,14 @@ void rainbow_mashin()
     else
       leds[i] = CRGB(0, 0, 0);      
   }
-  FastLED.show(); 
-}
+    if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }}
 
 
 
 void april(){
-  int SOUND_SENSOR_PIN_input = analogRead(SOUND_SENSOR_PIN) * 5; // ADD x2 HERE FOR MORE SENSITIVITY  
+  int SOUND_SENSOR_PIN_input = analogRead(SOUND_SENSOR_PIN) * SOUND_SENSOR_LEVEL; // ADD x2 HERE FOR MORE SENSITIVITY  
 
   if (SOUND_SENSOR_PIN_input > 0)
   {

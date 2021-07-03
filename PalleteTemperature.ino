@@ -28,6 +28,8 @@ void palleteTemperature()
     memset8( leds, 0, NUM_LEDS * sizeof(CRGB));
   }
   
-  FastLED.show();
-  FastLED.delay(8);
+  if (irrecv.isIdle()) {
+      FastLED.show(); 
+      FastLED.delay(8);
+    }
 }

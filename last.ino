@@ -58,9 +58,8 @@ void last() {
     soundmems();
   }
 
-  FastLED.show();
+   if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
 
 } // loop()
-
-
-

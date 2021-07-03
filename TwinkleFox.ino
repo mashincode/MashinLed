@@ -1,3 +1,5 @@
+#include "FastLED.h"
+
 #define COOL_LIKE_INCANDESCENT 1
 #define AUTO_SELECT_BACKGROUND_COLOR 0
 #define VOLTS          12
@@ -261,5 +263,7 @@ void twinkleFox()
 
   drawTwinkles( leds);
   
-  FastLED.show();
+   if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
 }

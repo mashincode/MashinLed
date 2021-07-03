@@ -36,6 +36,8 @@ void pride()
     pixelnumber = (NUM_LEDS-1) - pixelnumber;
     
     nblend( leds[pixelnumber], newcolor, 64);
-    FastLED.show();  
+    if (irrecv.isIdle()) {
+      FastLED.show(); 
+    }
   }
 }
