@@ -1,5 +1,5 @@
 #include "FastLED.h"
-#include <IRremote.h>
+#include <IRremote.h> //2.7
 #include <SoftwareSerial.h>
 #include <ArduinoBlue.h>
 
@@ -7,28 +7,42 @@
 
 const int BLUETOOTH_TX = 7;
 const int BLUETOOTH_RX = 8;
-IRrecv irrecv(2); // указываем пин, к которому подключен IR приемник
-#define NUM_LEDS 100 // количество диодов
-#define LED_PIN 6 // pin для ленты
+IRrecv irrecv(2);//9); // указываем пин, к которому подключен IR приемник
+#define NUM_LEDS 200 //422 // количество диодов
+#define LED_PIN 6//30 // pin для ленты
 #define BRIGHTNESS 255 // яркость ленты (0-255)
 #define SOUND_SENSOR_PIN A0 // аналоговый датчик звука
 #define SOUND_SENSOR_LEVEL 10 // уровень звука
 
-CRGBPalette16 palette = PartyColors_p;
 
+//const int BLUETOOTH_TX = 7;
+//const int BLUETOOTH_RX = 8;
+//IRrecv irrecv(9); //9); // указываем пин, к которому подключен IR приемник
+//#define NUM_LEDS 422 //420 // количество диодов
+//#define LED_PIN 30//30 // pin для ленты
+//#define BRIGHTNESS 255 // яркость ленты (0-255)
+//#define SOUND_SENSOR_PIN A0 // аналоговый датчик звука
+//#define SOUND_SENSOR_LEVEL 10 // уровень звука
+
+
+////////////////////////////// Режимы
+int MODE = 8;//////////////////
+//1 - animations //////////////////
+//2 - blendwave /////////////////
+//3 - dot_beat ///////////////
+//4 - twinkleFox //////////
+//5 - pacifica ///////////
+//6 - confetti;
+//7 - palletteFire();
+//////COLOR MUSIC //////
+//8 - Last ////////////
+//9 - April //////////
+//10 -  colorMusic///////
+
+
+CRGBPalette16 palette = PartyColors_p;
 const unsigned long BAUD_RATE = 9600;
 decode_results results;
-
-// The bluetooth tx and rx pins must be supported by software serial.
-// Visit https://www.arduino.cc/en/Reference/SoftwareSerial for unsupported pins.
-// Bluetooth TX -> Arduino D8
-
-
-
-
-// Bluetooth RX -> Arduino D7
-
-
 int prevThrottle = 49;
 int prevSteering = 49;
 int throttle, steering, sliderVal, button, sliderId;
@@ -43,21 +57,6 @@ void bluetooth_begin() {
   Serial.println("bluetooth setup complete");
 }
 
-
-
-////////////////////////////////
-int MODE = 1;//////////////////
-//1 - pride //////////////////
-//2 - cylon /////////////////
-//3 - center ///////////////
-//4 - twinkleFox //////////
-//5 - pacifica ///////////
-//6 - palleteTemperature();
-//7 - palletteFire();
-//////COLOR MUSIC //////
-//8 - Last ////////////
-//9 - April //////////
-//10 - Octave ///////
 
 
 // Define color structure for rgb
@@ -76,6 +75,8 @@ void setup() {
 }
 
 void fadeall() { for(int i = 0; i < NUM_LEDS; i++) { leds[i].nscale8(250); }if (irrecv.isIdle()) {FastLED.show();} }
+
+void testColors() { for(int i = 0; i < NUM_LEDS; i++) { leds[i]=CRGB(255, 0, 0); }if (irrecv.isIdle()) {FastLED.show();} }
 
 void loop() {
   checkCommand();
@@ -115,10 +116,9 @@ void checkCommand(){
        switchMode(10); // * 
     }  else if (results.value ==  16756815) {
        switchMode(-1); //# turn off
-    } 
-    
-    Serial.println(results.value);
-    Serial.println(results.value, HEX);
+    } else {
+      Serial.println(results.value);  
+    };
     irrecv.resume(); // Receive the next value
   }
   
@@ -157,13 +157,13 @@ void checkCommand(){
 void play(){
   switch (MODE) {
    case 1:
-      pride();
+      animations();
       break;
    case 2:
-      cylon();
+      blendwave();
       break;
    case 3:
-      center();
+      dot_beat();
       break;
    case 4:
        twinkleFox();
@@ -172,11 +172,10 @@ void play(){
        pacifica();
        break;
    case 6:
-       palleteTemperature();
+       confetti();
        break;
    case 7:
        palletteFire();
-       
        break;
    case 8:
       last();

@@ -39,15 +39,17 @@ CRGB Scroll(int pos) {
 // https://github.com/NeverPlayLegit/rainbow_mashin-Fader-FastLED/blob/master/rainbow_mashin.ino
 void rainbow_mashin()
 {
-  for(int i = NUM_LEDS - 1; i >= 0; i--) {
+  for(int i = 0; i <= NUM_LEDS - 1; i++) {
     if (i < react)
-      leds[i] = Scroll((i * 256 / 50 + k) % 256);
+      //leds[i] = Scroll((i * 256 / 50 + k) % 256);
+      leds[(NUM_LEDS-1)-i] = CRGB(100, 0, 100);
     else
-      leds[i] = CRGB(0, 0, 0);      
+      leds[(NUM_LEDS-1)- i] = CRGB(0, 0, 100);      
   }
     if (irrecv.isIdle()) {
       FastLED.show(); 
-    }}
+    }
+}
 
 
 

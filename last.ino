@@ -13,8 +13,8 @@ unsigned int sample = 0;
 
 void soundmems() {                                       // Rolling average counter - means we don't have to go through an array each time.
   
-  int tmp = analogRead(SOUND_SENSOR_PIN) - 512;
-  sample = abs(tmp);
+  int tmp = (analogRead(SOUND_SENSOR_PIN) * SOUND_SENSOR_LEVEL / 3);
+  sample = tmp;
   
 }  // soundmems()
 
@@ -48,7 +48,7 @@ void last() {
 
   EVERY_N_SECONDS(5) {                                        // Change the palette every 5 seconds.
     for (int i = 0; i < 16; i++) {
-      targetPalette[i] = CHSV(random8(), 255, 255);
+      targetPalette[i] = CHSV(100, 0, 100);
     }
   }
 
